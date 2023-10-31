@@ -15,7 +15,7 @@ class CosmonautAPI:
     def __init__(self, cosmonaut_service: CosmonautService):
         self.cosmonaunt_service = cosmonaut_service()
 
-    async def get_cosmonauts(self, filter: Annotated[CosmonautFilterQuery, Depends(CosmonautFilterQuery)]) -> List[dict]:
+    async def get_cosmonauts(self, filter: Annotated[CosmonautFilterQuery, Depends(CosmonautFilterQuery)]):
         cosmonauts : List[CosmonauntModel] = self.cosmonaunt_service.get(filter)
         
         try:
