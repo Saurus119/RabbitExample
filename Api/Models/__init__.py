@@ -1,1 +1,1 @@
-from Api.Models.cosmonaut_validation_model import Cosmonaut
+from Api.Models.cosmonaut_validation_model import Cosmonaunt

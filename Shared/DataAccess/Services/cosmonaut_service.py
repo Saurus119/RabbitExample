@@ -1,24 +1,24 @@
 from typing import List
 
 from Api.Enums.Api.query_order_type import OrderDBType
-from Api.Models import Cosmonaut
+from Api.Models import Cosmonaunt
 from Shared.DataAccess.Services.Config.config_service import DBService
-from Shared.DataAccess.Models.cosmonaut_db import CosmonautModel
+from Shared.DataAccess.Models.cosmonaut_db import CosmonauntModel
 
 class CosmonautService(DBService):
     
     def __init__(self) -> None:
         super().__init__()
 
-    def get(self, filter) -> List[CosmonautModel]:
-        query = self.db.query(CosmonautModel)
+    def get(self, filter) -> List[CosmonauntModel]:
+        query = self.db.query(CosmonauntModel)
 
         if filter.order_type:
             try:
                 if OrderDBType(filter.order_type).name.lower() == 'asc':
-                    query = query.order_by(CosmonautModel.Date.asc())
+                    query = query.order_by(CosmonauntModel.Date.asc())
                 elif OrderDBType(filter.order_type).name.lower() == 'desc':
-                    query = query.order_by(CosmonautModel.Date.desc())
+                    query = query.order_by(CosmonauntModel.Date.desc())
             except AttributeError as e:
                 print("Invalid order type from user. Data are not ordered.")
 
@@ -27,7 +27,7 @@ class CosmonautService(DBService):
 
         return query.all()
     
-    def create(self, cosmonaunt: CosmonautModel) -> bool:
+    def create(self, cosmonaunt: CosmonauntModel) -> bool:
         try:
             self.db.add(cosmonaunt)
             self.db.commit()
@@ -37,18 +37,18 @@ class CosmonautService(DBService):
         
     def delete(self, cosmonaunt_id: int) -> int:
         deleted_rows = (
-                self.db.query(CosmonautModel)
-                .filter(CosmonautModel.Id == cosmonaunt_id)
+                self.db.query(CosmonauntModel)
+                .filter(CosmonauntModel.Id == cosmonaunt_id)
                 .delete()
         )
         self.db.commit()
 
         return deleted_rows
     
-    def update(self, cosmonaunt_id: int, name: Cosmonaut) -> bool:
+    def update(self, cosmonaunt_id: int, name: Cosmonaunt) -> bool:
         selected_cosmonaunt = (
-            self.db.query(CosmonautModel)
-            .filter(CosmonautModel.Id == cosmonaunt_id)
+            self.db.query(CosmonauntModel)
+            .filter(CosmonauntModel.Id == cosmonaunt_id)
             .first()
         )
 

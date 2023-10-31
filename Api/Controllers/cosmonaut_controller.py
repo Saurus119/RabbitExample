@@ -7,8 +7,8 @@ from fastapi import Depends, Body
 from Api.Enums.Api.query_order_type import OrderDBType
 from Api.Encoders.json_encoder import CustomDatetimeEncoder
 from Api.Filters import CosmonautFilterQuery
-from Api.Models import Cosmonaut
-from Shared.DataAccess.Models import CosmonautModel
+from Api.Models import Cosmonaunt
+from Shared.DataAccess.Models import CosmonauntModel
 from Shared.DataAccess.Services.cosmonaut_service import CosmonautService
 
 class CosmonautAPI:
@@ -16,7 +16,7 @@ class CosmonautAPI:
         self.cosmonaunt_service = cosmonaut_service()
 
     async def get_cosmonauts(self, filter: Annotated[CosmonautFilterQuery, Depends(CosmonautFilterQuery)]) -> List[dict]:
-        cosmonauts : List[CosmonautModel] = self.cosmonaunt_service.get(filter)
+        cosmonauts : List[CosmonauntModel] = self.cosmonaunt_service.get(filter)
         
         try:
             ordered_by_info = f"Ordering DB: {OrderDBType(filter.order_type).name}"
@@ -30,8 +30,8 @@ class CosmonautAPI:
                  "data": json.dumps(json_cosmonaunts, cls=CustomDatetimeEncoder, separators=(',', ':'))
                 }
 
-    async def create_cosmonaut(self, cosmonaut: Cosmonaut) -> bool:
-        new_cosmonaut = CosmonautModel.from_validation_model(cosmonaut)
+    async def create_cosmonaut(self, cosmonaut: Cosmonaunt) -> bool:
+        new_cosmonaut = CosmonauntModel.from_validation_model(cosmonaut)
         is_created = self.cosmonaunt_service.create(new_cosmonaut)
         return {"created": is_created}
 
@@ -39,6 +39,6 @@ class CosmonautAPI:
         deleted_rows = self.cosmonaunt_service.delete(cosmonaunt_id)
         return {"message": f"Deleted cosmonaunts: {deleted_rows}", "IsDeleted": deleted_rows > 0}
     
-    async def update_cosmonaut(self, cosmonaunt_id: int, name: Cosmonaut = Body(..., description="Rename cosmounat for specific ID.")):
+    async def update_cosmonaut(self, cosmonaunt_id: int, name: Cosmonaunt = Body(..., description="Rename cosmounat for specific ID.")):
         is_updated = self.cosmonaunt_service.update(cosmonaunt_id, name)
         return {"IsUpdated": is_updated}

@@ -6,7 +6,7 @@ from sqlalchemy import  String, String
 
 Base = declarative_base()
 
-class CosmonautModel(Base):
+class CosmonauntModel(Base):
     __tablename__ = "Cosmonauts"
     
     Id : Mapped[int] = mapped_column(primary_key=True)
@@ -15,7 +15,7 @@ class CosmonautModel(Base):
 
     @classmethod
     def from_validation_model(cls, validation_model):
-        return CosmonautModel(Name=validation_model.name.strip())
+        return CosmonauntModel(Name=validation_model.name.strip())
     
     def to_dict(self) -> dict:
         return {column.name: getattr(self, column.name) for column in class_mapper(self.__class__).mapped_table.c}

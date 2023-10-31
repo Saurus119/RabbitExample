@@ -1,2 +1,2 @@
 
-from Shared.DataAccess.Models.cosmonaut_db import CosmonautModel
+from Shared.DataAccess.Models.cosmonaut_db import CosmonauntModel
