@@ -39,6 +39,6 @@ class CosmonautAPI:
         deleted_rows = self.cosmonaunt_service.delete(cosmonaunt_id)
         return {"message": f"Deleted cosmonaunts: {deleted_rows}", "IsDeleted": deleted_rows > 0}
     
-    async def update_cosmonaut(self, cosmonaunt_id: int, name: str = Body(..., description="Rename cosmounat for specific ID.")):
+    async def update_cosmonaut(self, cosmonaunt_id: int, name: Cosmonaut = Body(..., description="Rename cosmounat for specific ID.")):
         is_updated = self.cosmonaunt_service.update(cosmonaunt_id, name)
         return {"IsUpdated": is_updated}

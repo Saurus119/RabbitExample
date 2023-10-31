@@ -13,4 +13,5 @@ def register_routes(router: APIRouter):
     router.add_api_route("/cosmonauts", cosmonaut_api.create_cosmonaut, methods=["POST"])
     router.add_api_route("/cosmonauts/{cosmonaunt_id}", cosmonaut_api.delete_cosmonaut, methods=["DELETE"])
     router.add_api_route("/cosmonauts/{cosmonaunt_id}", cosmonaut_api.update_cosmonaut, methods=["PATCH"])
+    
     return router
