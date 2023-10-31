@@ -25,7 +25,13 @@ class CosmonautService(DBService):
         if filter.limit:
             query = query.limit(filter.limit)
 
-        return query.all()
+        cosmonaunts = query.all()
+        
+        # TODO: Maybe missmatch between SQL alchemy model and DB definition? extra characters are added.
+        for cosm in cosmonaunts:
+            cosm.Name = cosm.Name.strip()
+
+        return cosmonaunts
     
     def create(self, cosmonaunt: CosmonauntModel) -> bool:
         try:

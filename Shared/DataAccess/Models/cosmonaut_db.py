@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import  Column, String, DateTime
+from sqlalchemy import  Column, String, DateTime, CHAR
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Mapped, mapped_column, class_mapper
 from sqlalchemy import  String, String
@@ -10,7 +10,7 @@ class CosmonauntModel(Base):
     __tablename__ = "Cosmonauts"
     
     Id : Mapped[int] = mapped_column(primary_key=True)
-    Name = mapped_column(String(50))
+    Name = mapped_column(CHAR(50))
     Date = Column(DateTime, default=datetime.now)
 
     @classmethod
