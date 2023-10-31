@@ -30,7 +30,7 @@ class CosmonautAPI:
                  "data": json.dumps(json_cosmonaunts, cls=CustomDatetimeEncoder, separators=(',', ':'))
                 }
 
-    async def create_cosmonaut(self, cosmonaut: Cosmonaunt) -> bool:
+    async def create_cosmonaut(self, cosmonaut: Cosmonaunt) -> dict:
         new_cosmonaut = CosmonauntModel.from_validation_model(cosmonaut)
         is_created = self.cosmonaunt_service.create(new_cosmonaut)
         return {"created": is_created}
