@@ -1,0 +1,39 @@
+version: '3'
+services:
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - mynetwork
+    container_name: "rabbitmq"
+
+  db:
+    image: mcr.microsoft.com/mssql/server
+    environment:
+      SA_PASSWORD: "StrongPassword!123"
+      ACCEPT_EULA: "Y"
+      DOCKER_ENV: "true"
+    ports:
+      - "1433:1433"
+    networks:
+      - mynetwork
+    container_name: "db"
+    volumes:
+      - ./docker_setup.sql:/docker-entrypoint-initdb.d/docker_setup.sql
+
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - rabbitmq
+    networks:
+      - mynetwork
+    container_name: "web"
+    restart: on-failure
+
+networks:
+  mynetwork:
