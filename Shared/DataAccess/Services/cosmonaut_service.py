@@ -1,4 +1,5 @@
 from typing import List
+from sqlalchemy.exc import PendingRollbackError
 
 from Api.Enums.Api.query_order_type import OrderDBType
 from Api.Models import Cosmonaunt
@@ -25,7 +26,11 @@ class CosmonautService(DBService):
         if filter.limit:
             query = query.limit(filter.limit)
 
-        cosmonaunts = query.all()
+        try:
+            cosmonaunts = query.all()
+        except PendingRollbackError as exc:
+            cosmonaunts = []
+            self.db.rollback()
         
         # TODO: Maybe missmatch between SQL alchemy model and DB definition? extra characters are added.
         for cosm in cosmonaunts:

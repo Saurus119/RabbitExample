@@ -1,12 +1,18 @@
-from typing import List
 import asyncio
-
 from aio_pika import connect, Message, Exchange
-from Shared.Rabbit_MQ.consumer import DemoConsumer
-from Shared.Rabbit_MQ.Enums.routing_keys import RoutingKey
+from typing import List
 
-class RabbitConnection:
+from Shared.Rabbit_MQ.Enums.routing_keys import RoutingKey
+from Shared import is_local_enviroment
+
+class RabbitConnectionLocal:
     STRING = "amqp://guest:guest@localhost/"
+
+class RabbitConnectionDocker:
+    HOST = "rabbitmq"
+    PORT = 5672
+    USERNAME = "guest"
+    PASSWORD = "guest"
 
 class MessageExchangeClient:
     def __init__(self, queue_name: str):
@@ -23,10 +29,16 @@ class MessageExchangeClient:
 
     async def connect(self) -> None:
         try:
-            self.connection = await connect(RabbitConnection.STRING)
+            if is_local_enviroment():
+                self.connection = await connect(RabbitConnectionLocal.STRING)
+            else:
+                self.connection = await connect(host=RabbitConnectionDocker.HOST, port=RabbitConnectionDocker.PORT,
+                                                login=RabbitConnectionDocker.USERNAME, password=RabbitConnectionDocker.PASSWORD)
+            
             self.is_connected = True
             self.channel = None
-        except Exception:
+        except Exception as e:
+            print(str(e))
             self.is_connected = False
 
     async def create_channel_and_que(self) -> None:

@@ -27,7 +27,8 @@ class CosmonautAPI:
             json_cosmonaunts = [cosm.to_dict() for cosm in cosmonauts]
 
         return {"message": f"CosmountAPI, limiting:{filter.limit}, {ordered_by_info}",
-                 "data": json.dumps(json_cosmonaunts, cls=CustomDatetimeEncoder, separators=(',', ':'))
+                 "data": json.dumps(json_cosmonaunts if cosmonauts else [],
+                                     cls=CustomDatetimeEncoder, separators=(',', ':') )
                 }
 
     async def create_cosmonaut(self, cosmonaut: Cosmonaunt) -> dict:
