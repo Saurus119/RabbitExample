@@ -35,5 +35,16 @@ services:
     container_name: "web"
     restart: on-failure
 
+  reactapp:
+    build:
+      context: ./FrontEnd
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - mynetwork
+    container_name: "reactapp"
+    restart: on-failure
+
 networks:
   mynetwork:
