@@ -14,10 +14,10 @@ def register_routes(router: APIRouter):
     "Register all routes for api."
     router.add_api_route("/docs", get_swagger_ui_html(openapi_url="openapi.json", title="FastAPI - Swagger UI"), include_in_schema=False)
 
-    router.add_api_route("/cosmonauts", cosmonaut_api.get_cosmonauts, methods=["GET"])
-    router.add_api_route("/cosmonauts", cosmonaut_api.create_cosmonaut, methods=["POST"])
-    router.add_api_route("/cosmonauts/{cosmonaunt_id}", cosmonaut_api.delete_cosmonaut, methods=["DELETE"])
-    router.add_api_route("/cosmonauts/{cosmonaunt_id}", cosmonaut_api.update_cosmonaut, methods=["PATCH"])
+    router.add_api_route("/cosmonaunt", cosmonaut_api.get_cosmonauts, methods=["GET"])
+    router.add_api_route("/cosmonaunt", cosmonaut_api.create_cosmonaut, methods=["POST"])
+    router.add_api_route("/cosmonaunt/{cosmonaunt_id}", cosmonaut_api.delete_cosmonaut, methods=["DELETE"])
+    router.add_api_route("/cosmonaunt/{cosmonaunt_id}", cosmonaut_api.update_cosmonaut, methods=["PATCH"])
 
     router.add_api_route("/publish", rabbit_api.get, methods=["GET"])    
     return router

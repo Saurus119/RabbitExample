@@ -8,7 +8,8 @@ __pycache__/
 
 # react app
 # dependencies
-./frontend/node_modules
+./Frontend/node_modules
+./Frontend/build
 /.pnp
 .pnp.js
 

@@ -1,14 +1,16 @@
 import logo from './logo.svg';
 import './css/App.css';
-import Profile from "./components/TestButton.tsx"
+import DemoComponent from "./components/TestButton.tsx"
+import DemoView from "./views/DemoView.tsx"
 
 function App() {
   return (
 
     <div className="App">
-      <Profile/>
+      <DemoComponent/>
+      <DemoView/>
 
-      <header className="App-header">
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -21,7 +23,7 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
     </div>
   );
 }

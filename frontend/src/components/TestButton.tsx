@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Profile: React.FC = () => {
+const DemoComponent: React.FC = () => {
   return (
     <img
       src="https://i.imgur.com/MK3eW3Am.jpg"
@@ -9,4 +9,4 @@ const Profile: React.FC = () => {
   );
 }
 
-export default Profile;
+export default DemoComponent;
