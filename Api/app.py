@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from Api.before_start import lifespan
 from Api.routes import register_routes
 
-app = FastAPI(lifespan=lifespan, root_path="/api")
+app = FastAPI(lifespan=lifespan)
 api_router = APIRouter()
 
 registered_router = register_routes(api_router)

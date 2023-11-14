@@ -6,7 +6,7 @@ export default class ApiBase {
 
   constructor() {
     this.customAxios = axios.create({})
-    this.customAxios.defaults.baseURL = "http://127.0.0.1:8000/api"
+    this.customAxios.defaults.baseURL = "http://127.0.0.1:8000"
   }
 
   public async Get(endpoint: string, params: object) {
